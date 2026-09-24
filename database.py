@@ -14,12 +14,17 @@ load_dotenv()
 
 def get_connection():
     try:
+        ca_file = os.path.join(os.path.dirname(__file__), "ca.pem")
+
         db = mysql.connector.connect(
-            host="localhost",
+            host=os.getenv("DB_HOST"),
+            port=int(os.getenv("DB_PORT")),
             user=os.getenv("DB_USER"),
             password=os.getenv("DB_PASSWORD"),
             database=os.getenv("DB_NAME"),
-            ssl_disabled=True
+            ssl_ca=ca_file,
+            ssl_verify_cert=True,
+            ssl_verify_identity=True
         )
 
         if db.is_connected():
