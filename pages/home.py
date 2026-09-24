@@ -311,21 +311,41 @@ profile_col, logo_col, search_col = st.columns([0.5, 1.5, 4.2], vertical_alignme
 with profile_col:
     with st.popover("👤"):
         signed_in = st.session_state.get("logged_in", False)
-        st.markdown(
-            f"""
-            <div class="profile-pop">
-                <h4>{'Patient' if signed_in else 'Guest User'}</h4>
-                <p>{'Signed in to CareCompass' if signed_in else 'Guest user'}</p>
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
-        st.divider()
-        st.caption("Manage your account")
-        st.button("View profile", use_container_width=True, key="profile_view")
-        if st.button("Sign out", use_container_width=True, key="profile_signout"):
-            st.session_state.clear()
-            st.switch_page("title.py")
+
+        if signed_in:
+            user = st.session_state.get("user", {})
+            display_name = (
+                f"{user.get('first_name', '')} {user.get('last_name', '')}".strip()
+                or user.get("username", "Patient")
+            )
+            st.markdown(
+                f"""
+                <div class="profile-pop">
+                    <h4>{html_lib.escape(display_name)}</h4>
+                    <p>Signed in to CareCompass</p>
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
+            st.divider()
+            st.caption("Manage your account")
+            st.button("View profile", use_container_width=True, key="profile_view")
+            if st.button("Sign out", use_container_width=True, key="profile_signout"):
+                st.session_state.clear()
+                st.switch_page("title.py")
+        else:
+            st.markdown(
+                """
+                <div class="profile-pop">
+                    <h4>Guest User</h4>
+                    <p>Please login to access your account</p>
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
+            st.divider()
+            if st.button("Sign In", use_container_width=True, key="profile_signin"):
+                st.switch_page("title.py")
 
 with logo_col:
     if LOGO_B64:
