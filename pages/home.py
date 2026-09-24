@@ -329,7 +329,7 @@ with profile_col:
             )
             st.divider()
             st.caption("Manage your account")
-            st.button("View profile", use_container_width=True, key="profile_view")
+            
             if st.button("Sign out", use_container_width=True, key="profile_signout"):
                 st.session_state.clear()
                 st.switch_page("title.py")
