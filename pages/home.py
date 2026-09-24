@@ -184,6 +184,48 @@ st.markdown(
     div[data-testid="stNumberInput"] > div {
         border-radius: 12px !important;
     }
+    /* Force light styling so dropdowns/number inputs don't fall back to a
+       dark theme's default (black tile, white text) */
+    div[data-testid="stSelectbox"] [data-baseweb="select"] > div {
+        background-color: #ffffff !important;
+        color: #111827 !important;
+        border: 1px solid #d1d5db !important;
+        border-radius: 12px !important;
+    }
+    div[data-testid="stSelectbox"] [data-baseweb="select"] span {
+        color: #111827 !important;
+    }
+    div[data-testid="stSelectbox"] [data-baseweb="select"] svg {
+        fill: #111827 !important;
+        color: #111827 !important;
+    }
+    div[data-testid="stNumberInput"] input {
+        background-color: #ffffff !important;
+        color: #111827 !important;
+        caret-color: #111827 !important;
+    }
+    div[data-testid="stNumberInput"] button {
+        background-color: #ffffff !important;
+        color: #111827 !important;
+    }
+    div[data-testid="stNumberInput"] button svg {
+        fill: #111827 !important;
+    }
+    div[data-testid="stTextInput"] input {
+        background-color: #ffffff !important;
+        color: #111827 !important;
+        caret-color: #111827 !important;
+    }
+    /* Dropdown option list (the open menu) */
+    ul[role="listbox"] li {
+        background-color: #ffffff !important;
+        color: #111827 !important;
+    }
+    ul[role="listbox"] li:hover,
+    ul[role="listbox"] li[aria-selected="true"] {
+        background: #eaf4ff !important;
+        color: #123F73 !important;
+    }
     div[data-testid="stButton"] > button {
         width: 100%;
         height: 46px;
@@ -301,6 +343,121 @@ st.markdown(
     background-color: #0D315C !important;
     color: white !important;
     }
+
+    /* ---------- Hospital card: professional layout (ported from v2) ---------- */
+    .hospital-card {
+        position: relative;
+        overflow: hidden;
+        padding: 18px 20px 18px 22px !important;
+        border-radius: 18px !important;
+        border: 1px solid #e3edf6 !important;
+    }
+    .hospital-card::before {                 /* accent bar on the left edge */
+        content: "";
+        position: absolute;
+        left: 0; top: 0; bottom: 0;
+        width: 5px;
+        background: linear-gradient(180deg, #1c4f8a 0%, #14b8a6 100%);
+    }
+    .hc-row { display: flex; gap: 22px; align-items: stretch; flex-wrap: wrap; }
+
+    /* photo */
+    .hc-thumb {
+        width: 170px; min-width: 170px; height: 130px;
+        border-radius: 14px;
+        overflow: hidden;
+        position: relative;
+        background: #dbeaf5;
+        align-self: flex-start;
+    }
+    .hc-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .hc-top-badge {
+        position: absolute; top: 8px; left: 8px; z-index: 1;
+        background: linear-gradient(135deg, #f59e0b, #f97316);
+        color: #fff;
+        font-size: 10px; font-weight: 700; letter-spacing: 0.04em;
+        padding: 3px 10px;
+        border-radius: 999px;
+    }
+
+    /* main info */
+    .hc-main { flex: 1; min-width: 250px; }
+    .hc-name {
+        color: #0f2d52;
+        font-size: 20px; font-weight: 800; line-height: 1.25;
+        margin: 0 0 8px 0;
+    }
+    .hc-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+    .hc-tag {
+        font-size: 12px; font-weight: 700;
+        padding: 4px 11px;
+        border-radius: 8px;
+    }
+    .hc-tag-type   { background: #eef3fb; color: #1c4f8a; }
+    .hc-tag-rating { background: #fff7e0; color: #a16207; }
+
+    .hc-facts {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px 24px;
+        margin-bottom: 14px;
+    }
+    .hc-label {
+        font-size: 11px; font-weight: 700;
+        letter-spacing: 0.08em; text-transform: uppercase;
+        color: #8094aa;
+        margin-bottom: 2px;
+    }
+    .hc-value { font-size: 15px; font-weight: 700; color: #163a66; }
+
+    .hc-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+    .hc-chip {
+        background: #eef6ff; color: #2563eb;
+        font-size: 11px; font-weight: 600;
+        padding: 4px 10px;
+        border-radius: 999px;
+        border: 1px solid #dbeafe;
+    }
+
+    /* right-hand panel */
+    .hc-side {
+        width: 200px; min-width: 180px;
+        display: flex; flex-direction: column;
+        justify-content: space-between;
+        gap: 14px;
+        padding-left: 20px;
+        border-left: 1px dashed #d5e2ee;
+    }
+    .hc-emerg {
+        align-self: flex-end;
+        display: inline-flex; align-items: center; gap: 8px;
+        background: #fff1f3; color: #be123c;
+        font-size: 12px; font-weight: 800;
+        padding: 5px 12px;
+        border-radius: 999px;
+    }
+    .hc-dot {
+        width: 8px; height: 8px;
+        border-radius: 50%;
+        background: #e11d48;
+        animation: hc-pulse 1.6s infinite;
+    }
+    @keyframes hc-pulse {
+        0%   { box-shadow: 0 0 0 0 rgba(225, 29, 72, 0.5); }
+        70%  { box-shadow: 0 0 0 7px rgba(225, 29, 72, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(225, 29, 72, 0); }
+    }
+    .hc-rate { font-size: 30px; font-weight: 800; line-height: 1.1; }
+    .hc-bar {
+        height: 8px;
+        background: #e8eff6;
+        border-radius: 999px;
+        overflow: hidden;
+        margin-top: 6px;
+    }
+    .hc-bar-fill { height: 100%; border-radius: 999px; }
+    .hc-patients { font-size: 13px; color: #3b5878; }
+    .hc-patients b { color: #163a66; font-size: 15px; }
 </style>
 """,
     unsafe_allow_html=True,
@@ -665,32 +822,63 @@ with col1:
     photo_by_hospital = dict(zip(unique_names, shuffled))
     if not show:
         filter_df = filter_df.head(3)
+
+    # ---------------------------------------------------------
+    # HOSPITAL CARDS (upgraded layout, ported from v2)
+    # ---------------------------------------------------------
     for index, hospital in filter_df.iterrows():
         photo_uri = photo_by_hospital.get(str(hospital["hospital_name"]))
         name = html_lib.escape(str(hospital["hospital_name"]))
         city = html_lib.escape(str(hospital["city"]))
         htype = html_lib.escape(str(hospital["hospital_type"]))
-        badge = '<div class="badge">★ Top Rated</div>' if float(hospital["rating"]) >= 4.6 else ""
+        rating = float(hospital["rating"])
+
+        # Success-rate colour: green >= 90, amber >= 75, red below.
+        # Guards against NaN/inf when patients_on_disease_beds is 0.
+        rate = hospital["Success_Rate"]
+        if pd.isna(rate) or abs(rate) == float("inf"):
+            rate_txt, rate_width, rate_color = "N/A", 0, "#94a3b8"
+        else:
+            rate_txt = f"{rate:.1f}%"
+            rate_width = max(0, min(100, rate))
+            rate_color = "#16a34a" if rate >= 90 else "#f59e0b" if rate >= 75 else "#e11d48"
+
+        badge = '<div class="hc-top-badge">★ Top Rated</div>' if rating >= 4.6 else ""
         thumb_inner = f'{badge}<img src="{photo_uri}" alt="{name}" />' if photo_uri else badge
+
         chips = "".join(
-            f'<span class="chip">{html_lib.escape(s.strip())}</span>'
+            f'<span class="hc-chip">{html_lib.escape(s.strip())}</span>'
             for s in str(hospital["specialties"]).split("|")
             if s.strip()
         )
+        specialties_block = (
+            f'<div class="hc-label">Specialties</div><div class="hc-chips">{chips}</div>'
+            if chips else ""
+        )
+
         html = f"""<div class="hospital-card">
-<div class="card-row">
-<div class="thumb">{thumb_inner}</div>
-<div class="card-body">
-<h3>{name}</h3>
-<p class="meta">⭐ <b>{hospital['rating']}</b> &nbsp;·&nbsp; {htype}</p>
-<p class="meta">📍 {city}</p>
-<p class="meta">💰 Treatment Cost: ₹{hospital['treatment_cost_inr']:,}</p>
-<div class="chips">{chips}</div>
+<div class="hc-row">
+<div class="hc-thumb">{thumb_inner}</div>
+<div class="hc-main">
+<div class="hc-name">{name}</div>
+<div class="hc-tags">
+<span class="hc-tag hc-tag-type">{htype}</span>
+<span class="hc-tag hc-tag-rating">★ {rating:.1f} Rating</span>
 </div>
-<div class="card-side">
-<p class="emergency">➕ 24/7 Emergency</p>
-<p class="side-stat">Patients being Treated: {hospital['patients_on_disease_beds']}</p>
-<p class="side-stat">Success Rate: {hospital['Success_Rate']:.2f}%</p>
+<div class="hc-facts">
+<div><div class="hc-label">Location</div><div class="hc-value">{city}</div></div>
+<div><div class="hc-label">Treatment Cost</div><div class="hc-value">₹{hospital['treatment_cost_inr']:,}</div></div>
+</div>
+{specialties_block}
+</div>
+<div class="hc-side">
+<div class="hc-emerg"><span class="hc-dot"></span>24/7 Emergency</div>
+<div>
+<div class="hc-label">Success Rate</div>
+<div class="hc-rate" style="color:{rate_color}">{rate_txt}</div>
+<div class="hc-bar"><div class="hc-bar-fill" style="width:{rate_width}%;background:{rate_color}"></div></div>
+</div>
+<div class="hc-patients">Patients in treatment: <b>{hospital['patients_on_disease_beds']}</b></div>
 </div>
 </div>
 </div>"""
@@ -834,4 +1022,3 @@ with col2:
 # =========================================================
 # AI HEALTHCARE CHATBOT
 # =========================================================
-
